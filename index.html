@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Actuator Dynamics Curricula for Narrow-Viability Tasks in Legged Robot Learning</title>
+  <meta name="description" content="A curriculum that anneals simulated joint stiffness to train legged-robot tasks where exploration is bottlenecked by early termination, demonstrated on a quadrupedal-to-handstand transition on Boston Dynamics Spot.">
+  <meta name="keywords" content="Legged Robots, Reinforcement Learning, Curriculum Learning">
+
+  <!-- Social preview (shown when the page is shared). -->
+  <meta property="og:title" content="Actuator Dynamics Curricula for Narrow-Viability Tasks in Legged Robot Learning">
+  <meta property="og:description" content="A curriculum that anneals simulated joint stiffness to train legged-robot tasks where exploration is bottlenecked by early termination, demonstrated on a quadrupedal-to-handstand transition on Boston Dynamics Spot.">
+  <meta property="og:type" content="website">
+  <!-- Absolute URLs are required here; relative paths do not work for previews. -->
+  <meta property="og:url" content="https://saxionmechatronics.github.io/adc/">
+  <meta property="og:image" content="https://saxionmechatronics.github.io/adc/static/images/preview.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Actuator Dynamics Curricula for Narrow-Viability Tasks in Legged Robot Learning">
+  <meta name="twitter:description" content="A curriculum that anneals simulated joint stiffness to train legged-robot tasks where exploration is bottlenecked by early termination, demonstrated on a quadrupedal-to-handstand transition on Boston Dynamics Spot.">
+  <meta name="twitter:image" content="https://saxionmechatronics.github.io/adc/static/images/preview.jpg">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" type="image/png" href="./static/images/favicon.png">
+
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+</head>
+<body>
+
+<!-- Title, authors, affiliations and resource links. -->
+<section class="hero publication-header">
+  <div class="hero-body">
+    <div class="container is-max-widescreen">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">
+            Actuator Dynamics Curricula<br>
+            <span class="publication-title-sub">for Narrow-Viability Tasks in Legged Robot Learning</span>
+          </h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://kousheekc.github.io/">Kousheek Chakraborty</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/chandankumar-rajendra/">Chandan K. Rajendra</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://ayhamalharbat.github.io/#publications">Ayham Alharbat</a><sup>1,3</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/abejeymersha/">Abeje Y. Mersha</a><sup>1</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Saxion University of Applied Sciences,</span>
+            <span class="author-block"><sup>2</sup>University of Groningen,</span>
+            <span class="author-block"><sup>3</sup>University of Twente</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF. -->
+              <span class="link-block">
+                <a href="./paper.pdf" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- arXiv. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2609.09492" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video. Disabled until there is a YouTube upload; fill in the href and
+                   remove the comment markers to bring the button back.
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              -->
+              <!-- Code. -->
+              <span class="link-block">
+                <a href="https://github.com/SaxionMechatronics/spot_rl_train" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-venue">
+              🎉 Accepted to CoRL 2026
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser figure. -->
+<section class="section section-tight-top">
+  <div class="container is-max-widescreen">
+    <img src="./static/images/figures/cover.jpg"
+         alt="Spot transitioning from a four-legged stance to a handstand, in simulation and on hardware.">
+    <p class="has-text-centered is-size-7 has-text-grey" style="margin-top: 0.75rem;">
+      Boston Dynamics Spot transitioning from a four-legged stance to a balanced handstand.
+      The policy is trained in simulation (left) and transfers zero-shot to the physical robot (right).
+    </p>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-widescreen">
+
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Reinforcement learning has produced capable controllers across a broad range of
+            legged-robot tasks, but a subset of these tasks fail to converge under standard
+            training: those for which most exploration trajectories terminate before producing
+            useful gradient signal. To address such tasks we introduce the
+            <b>Actuator Dynamics Curriculum</b>, a procedure that initializes joint stiffness at
+            a high value and anneals it toward the system-identified value as completed episode
+            lengths grow. Using a cart-pole system as a representative example, we show that
+            higher closed-loop joint natural frequency under critical damping enlarges the
+            viability kernel of the underlying Markov Decision Process, increasing the fraction
+            of initial states from which the task is feasible. We validate the kernel
+            monotonicity on the cart-pole and apply the curriculum to a quadrupedal-to-handstand
+            transition on the Boston Dynamics Spot, a narrow-viability task where training under
+            fixed identified stiffness plateaus at a policy that never completes the transition.
+            The trained policy executes the transition in simulation across 10 seeds and
+            transfers to hardware. More broadly, our results suggest that simulated actuator
+            dynamics is a useful axis along which to design curricula for tasks in which
+            exploration is bottlenecked by termination conditions rather than by reward signal.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-widescreen">
+
+    <!-- The task and the failure mode. -->
+    <h2 class="title is-3">Overview</h2>
+    <div class="content has-text-justified">
+      <p>
+        The handstand transition requires Spot to pitch forward 90&deg; in about a second. Part way
+        through, the hind legs have left the ground and the body is rotating, and from those states
+        most actions cause a fall and terminate the episode. Under the system-identified joint
+        stiffness, training plateaus. Mean episode length stalls around 400 steps and the policy
+        never completes the transition.
+      </p>
+    </div>
+
+    <img src="./static/images/figures/architecture.png"
+         alt="System overview: CMA-ES system identification, PPO training in IsaacLab with the curriculum manager, deployment to a Jetson Nano on Spot.">
+    <p class="has-text-centered is-size-7 has-text-grey" style="margin-top: 0.75rem;">
+      System identification of the actuator parameters is performed with CMA-ES against
+      trajectories collected on a Spot. Training runs PPO in IsaacLab, where the curriculum
+      manager sets (<i>K</i>, <i>B</i>) from the running episode length. The trained policy runs
+      on an NVIDIA Jetson Nano onboard the robot and communicates via the Spot SDK.
+    </p>
+
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-widescreen">
+
+    <!-- Training. -->
+    <h2 class="title is-3">Training</h2>
+    <div class="content has-text-justified">
+      <p>
+        Policies are trained in simulation with PPO using the
+        <a href="https://github.com/leggedrobotics/rsl_rl">RSL-RL</a> library inside
+        <a href="https://github.com/isaac-sim/IsaacLab">IsaacLab</a>, with 4096 parallel
+        environments on a single workstation (Intel Core i9, NVIDIA RTX 5000 Ada, 32 GB RAM).
+        Physics runs at 500 Hz and the policy at 50 Hz, and an episode lasts 20 s or 1000
+        policy steps. Each seed trains for 10,000 iterations, which takes about 1.5 hours of
+        wall-clock time, and we train 10 seeds per condition.
+      </p>
+      <p>
+        The policy is a small MLP with hidden layers of 512, 256 and 128 units and ELU
+        activations. It maps a 45-dimensional proprioceptive observation (base linear and
+        angular velocity, projected gravity, joint positions and velocities, and the previous
+        action) to 12 joint position offsets relative to the default standing pose. At
+        deployment the same network runs at 50 Hz on an NVIDIA Jetson Nano mounted on Spot and
+        commands the robot through the Spot SDK.
+      </p>
+      <p>
+        For transfer to hardware, physical parameters are randomized during training. Ground
+        friction and the base mass are perturbed once per environment at startup. At every
+        episode reset the base pose and velocity and the joint positions and velocities are
+        perturbed around the nominal standing configuration. During episodes the base is pushed
+        with a random velocity every 2 to 5 seconds.
+      </p>
+    </div>
+
+    <video class="result-video" autoplay controls muted loop playsinline>
+      <source src="./static/videos/training-flyover.mp4" type="video/mp4">
+    </video>
+    <p class="has-text-centered is-size-7 has-text-grey" style="margin-top: 0.75rem; margin-bottom: 1.5rem;">
+      Flyover of the training environments as training progresses under the curriculum.
+    </p>
+
+    <div class="content has-text-justified" style="margin-top: 1.5rem;">
+      <p>
+        Each of the 4096 environments runs its own copy of the robot and all of them step
+        together on the GPU. This is what makes policy gradient methods practical for legged
+        robots, since orders of magnitude more interactions are collected per second of
+        wall-clock time than a single simulation could provide. For the handstand transition,
+        however, parallelism alone is not enough. Under the identified stiffness almost every
+        rollout ends in a fall part way through the transition, so adding environments adds
+        more terminated episodes rather than more useful gradient signal. The curriculum
+        described next addresses this.
+      </p>
+    </div>
+
+    <video class="result-video" autoplay controls muted loop playsinline>
+      <source src="./static/videos/parallel-training.mp4" type="video/mp4">
+    </video>
+    <p class="has-text-centered is-size-7 has-text-grey" style="margin-top: 0.75rem;">
+      Thousands of Spot instances training in parallel in IsaacLab.
+    </p>
+
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-widescreen">
+
+    <!-- Method. -->
+    <h2 class="title is-3">Actuator Dynamics Curriculum</h2>
+    <div class="content has-text-justified">
+      <p>
+        The curriculum acts on the simulated closed-loop joint dynamics. Each joint is
+        position-controlled by a PD loop, and the curriculum schedules its stiffness. Training
+        starts at <i>K</i><sub>0</sub> = 60, well above the system-identified value
+        <i>K</i><sup>*</sup> = 40, and anneals toward <i>K</i><sup>*</sup> as the running mean of
+        completed episode lengths grows, so the dynamics only relax once the policy is surviving
+        long enough to learn from. Damping is recomputed at every iteration so that each joint
+        stays critically damped, which means only the closed-loop bandwidth changes and not the
+        character of the response. A stiffer loop tracks commanded joint positions more
+        aggressively, which gives an untrained policy margin to recover from bad actions. By the
+        end of training the stiffness has reached <i>K</i><sup>*</sup> and the policy is operating
+        under the actuator dynamics it will be deployed on.
+      </p>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <img src="./static/images/figures/algorithm.png"
+             alt="Algorithm 1, the Actuator Dynamics Curriculum. Each training iteration collects rollouts under the current stiffness, updates the policy, updates an exponential moving average of completed episode length, maps it to a progress fraction between the episode-length thresholds, sets the stiffness between the initial and target values, and recomputes the damping for critical damping.">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-widescreen">
+
+    <!-- Ablations. -->
+    <h3 class="title is-4">Ablations</h3>
+    <div class="content has-text-justified">
+      <p>
+        We compare the curriculum against five ablations, each varying one design choice while
+        keeping all other hyperparameters identical. Training at the identified stiffness
+        <i>K</i><sup>*</sup> or at the elevated stiffness <i>K</i><sub>0</sub> throughout,
+        randomizing the stiffness between the two, annealing on a fixed time schedule instead of
+        on episode length, and removing early termination are each trained for 10 seeds and
+        evaluated over 1000 episodes under the deployment dynamics <i>K</i><sup>*</sup>. None of
+        them reaches the episode length or reward of the full curriculum.
+      </p>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <table class="table is-fullwidth is-narrow">
+          <thead>
+            <tr>
+              <th>Condition</th>
+              <th class="has-text-right">Episode length</th>
+              <th class="has-text-right">Reward</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Train at <i>K</i>*</td>
+              <td class="has-text-right">385 &plusmn; 47</td>
+              <td class="has-text-right">&minus;42.1 &plusmn; 8.7</td>
+            </tr>
+            <tr>
+              <td>Train at <i>K</i><sub>0</sub></td>
+              <td class="has-text-right">215 &plusmn; 38</td>
+              <td class="has-text-right">&minus;68.5 &plusmn; 12.3</td>
+            </tr>
+            <tr>
+              <td>Randomize <i>K</i> &isin; [<i>K</i>*, <i>K</i><sub>0</sub>]</td>
+              <td class="has-text-right">658 &plusmn; 89</td>
+              <td class="has-text-right">&minus;18.7 &plusmn; 6.2</td>
+            </tr>
+            <tr>
+              <td>Time-based annealing schedule</td>
+              <td class="has-text-right">751 &plusmn; 62</td>
+              <td class="has-text-right">&minus;12.3 &plusmn; 5.1</td>
+            </tr>
+            <tr>
+              <td>No early termination</td>
+              <td class="has-text-right">547 &plusmn; 56</td>
+              <td class="has-text-right">&minus;35.4 &plusmn; 7.4</td>
+            </tr>
+            <tr>
+              <td><b>Ours</b> (Actuator Dynamics Curriculum)</td>
+              <td class="has-text-right"><b>975 &plusmn; 12</b></td>
+              <td class="has-text-right"><b>&minus;4.76 &plusmn; 0.83</b></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="is-size-7 has-text-grey">
+          Ablations on the Spot handstand task, mean &plusmn; std across 10 seeds, each evaluated
+          over 1000 episodes under the deployment dynamics <i>K</i>*.
+        </p>
+      </div>
+    </div>
+
+    <h2 class="title is-3" style="margin-top: 2rem;">Results</h2>
+    <div class="content has-text-justified">
+      <p>
+        Both conditions are trained for 10 seeds with identical hyperparameters. Without the
+        curriculum, mean episode length plateaus around 400 steps and reward stays low. With the
+        curriculum, both rise monotonically and converge within roughly 1.5 hours of wall-clock
+        training per seed.
+      </p>
+    </div>
+
+    <div class="columns">
+      <div class="column">
+        <video class="result-video" autoplay muted loop playsinline>
+          <source src="./static/videos/sim-with-adc.mp4" type="video/mp4">
+        </video>
+        <p class="has-text-centered is-size-7 has-text-grey" style="margin-top: 0.5rem;">
+          With ADC
+        </p>
+      </div>
+      <div class="column">
+        <video class="result-video" autoplay muted loop playsinline>
+          <source src="./static/videos/sim-without-adc.mp4" type="video/mp4">
+        </video>
+        <p class="has-text-centered is-size-7 has-text-grey" style="margin-top: 0.5rem;">
+          Without ADC
+        </p>
+      </div>
+    </div>
+    <p class="has-text-centered is-size-7 has-text-grey">
+      Both policies after 10,000 policy updates. The curriculum-trained policy reaches the
+      inverted equilibrium while the baseline falls.
+    </p>
+
+    <!-- Hardware. -->
+    <div class="content has-text-justified" style="margin-top: 2rem;">
+      <p>
+        All 10 curriculum-trained policies were deployed zero-shot to a physical Spot. Each
+        produced the handstand transition and held the inverted pose under disturbances applied by
+        prodding the robot with a pole. On carpet the transition succeeded on the first attempt.
+        On padded surfaces it sometimes required a second attempt, which the policy executed as an
+        emergent retry. Across approximately 20 recorded trials on carpet, soft padding and
+        hardwood, all transitions succeeded.
+      </p>
+    </div>
+
+    <div class="columns">
+      <div class="column">
+        <video class="result-video" autoplay muted loop playsinline>
+          <source src="./static/videos/hardware-carpet.mp4" type="video/mp4">
+        </video>
+        <p class="has-text-centered is-size-7 has-text-grey" style="margin-top: 0.5rem;">
+          <b>Hard carpet.</b> First-attempt transition.
+        </p>
+      </div>
+      <div class="column">
+        <video class="result-video" autoplay muted loop playsinline>
+          <source src="./static/videos/hardware-padded.mp4" type="video/mp4">
+        </video>
+        <p class="has-text-centered is-size-7 has-text-grey" style="margin-top: 0.5rem;">
+          <b>Soft padding.</b> Emergent retry.
+        </p>
+      </div>
+      <div class="column">
+        <video class="result-video" autoplay muted loop playsinline>
+          <source src="./static/videos/hardware-robustness.mp4" type="video/mp4">
+        </video>
+        <p class="has-text-centered is-size-7 has-text-grey" style="margin-top: 0.5rem;">
+          <b>Robustness.</b> Holding the handstand under disturbances.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-widescreen content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{chakraborty2026actuator,
+  author    = {Chakraborty, Kousheek and Rajendra, Chandan K. and Alharbat, Ayham and Mersha, Abeje Y.},
+  title     = {Actuator Dynamics Curricula for Narrow-Viability Tasks in Legged Robot Learning},
+  booktitle = {Conference on Robot Learning (CoRL)},
+  year      = {2026},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Website borrowed from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a>
+            under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
