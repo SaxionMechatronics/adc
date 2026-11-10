@@ -7,48 +7,98 @@ body {
     margin-bottom: 5px;
 }
 
-.teaser .hero-body {
-  padding-top: 0;
-  padding-bottom: 3rem;
-}
+/* --- Video hero -----------------------------------------------------------
+   Full-viewport looping video (static/videos/hero.mp4) behind the title block,
+   with a scrim in between so the white text stays legible over the white
+   wireframe. Layout follows bundledcontactgradients.github.io.
+   --------------------------------------------------------------------------- */
 
-.teaser {
-  font-family: 'Google Sans', sans-serif;
-}
-
-.publication-banner {
-  max-height: parent;
-
-}
-
-.publication-banner video {
+.project-hero {
   position: relative;
-  left: auto;
-  top: auto;
-  transform: none;
-  object-fit: fit;
+  min-height: 100vh;   /* fallback for browsers without svh */
+  min-height: 100svh;
+  overflow: hidden;
+  background: #000;
 }
 
-/*
-  Bulma pads the hero body and the following section by 3rem each, which leaves
-  a large blank band between the header and the first content block. These two
-  rules tighten that up - raise them if you want more breathing room.
-*/
-.publication-header .hero-body {
-    padding-bottom: 1.5rem;
+.project-hero-media,
+.project-hero-scrim {
+  position: absolute;
+  inset: 0;
 }
 
-.section.section-tight-top {
-    padding-top: 0;
+/* The video is rendered on pure black, so the backdrop matches it exactly and
+   the edges never show while it loads. */
+.project-hero-media {
+  z-index: 0;
+  background: url("../images/hero_poster.jpg") center center / cover no-repeat #000;
+}
+
+.project-hero-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.project-hero-scrim {
+  z-index: 1;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.52) 54%, rgba(0, 0, 0, 0.68) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.20), transparent 32%, transparent 68%, rgba(0, 0, 0, 0.20));
+}
+
+.project-hero .hero-body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 4rem 1.5rem;
+}
+
+.project-hero .publication-title {
+  color: #fff;
+  font-size: clamp(2.15rem, 5vw, 4rem);
+  line-height: 1.08;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.72);
+}
+
+.project-hero .publication-title .publication-title-sub {
+  display: inline-block;
+  margin-top: 0.35em;
+  font-size: 0.55em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.project-hero .publication-authors,
+.project-hero .publication-venue {
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9);
+}
+
+.project-hero .publication-links .button {
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(16, 18, 20, 0.78);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.22);
+  color: #fff;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.project-hero .publication-links a.button:hover {
+  border-color: rgba(255, 255, 255, 0.52);
+  background: rgba(6, 7, 8, 0.9);
+}
+
+@media screen and (max-width: 768px) {
+  .project-hero { min-height: 82vh; min-height: 82svh; }
 }
 
 .publication-title {
     font-family: 'Google Sans', sans-serif;
     line-height: 1.2;
-}
-
-.publication-title .publication-title-sub {
-    font-size: 0.72em;
 }
 
 .publication-authors {
@@ -62,12 +112,6 @@ body {
     font-weight: bold;
 }
 
-.publication-awards {
-    color: #ff3860;
-    width: fit-content;
-    font-weight: bolder;
-}
-
 .publication-authors a {
    color: hsl(204, 86%, 53%) !important;
 }
@@ -78,44 +122,6 @@ body {
 
 .author-block {
   display: inline-block;
-}
-
-.results-carousel {
-  overflow: hidden;
-}
-
-.results-carousel .item {
-  margin: 5px;
-  overflow: hidden;
-  border: 1px solid #bbb;
-  border-radius: 10px;
-  padding: 0;
-  font-size: 0;
-}
-
-.results-carousel video {
-  margin: 0;
-}
-
-.interpolation-panel {
-  background: #f5f5f5;
-  border-radius: 10px;
-}
-
-.interpolation-panel .interpolation-image {
-  width: 100%;
-  border-radius: 5px;
-}
-
-.interpolation-panel .slider {
-  margin: 0 !important;
-}
-
-#interpolation-image-wrapper {
-  width: 100%;
-}
-#interpolation-image-wrapper img {
-  border-radius: 5px;
 }
 
 /* Self-hosted result clips: fill the column, match the figures' rounding. */

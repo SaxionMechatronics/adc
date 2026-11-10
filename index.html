@@ -24,7 +24,6 @@
         rel="stylesheet">
 
   <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
@@ -34,8 +33,26 @@
 </head>
 <body>
 
-<!-- Title, authors, affiliations and resource links. -->
-<section class="hero publication-header">
+<!-- Hero: full-bleed looping video behind the title, authors and links.
+     A scrim sits between the video and the text to keep it legible. -->
+<section class="hero publication-header project-hero">
+  <div class="project-hero-media" aria-hidden="true">
+    <!-- autoplay + muted + playsinline is what lets mobile browsers (iOS in
+         particular) play the loop inline without a tap. -->
+    <video id="hero-video" class="project-hero-video" autoplay muted loop playsinline
+           preload="auto" poster="./static/images/hero_poster.jpg" tabindex="-1">
+      <source src="./static/videos/hero.mp4" type="video/mp4">
+    </video>
+    <script>
+      (function () {
+        var v = document.getElementById('hero-video');
+        var p = v.play();
+        if (p && p.catch) p.catch(function () { /* autoplay blocked; poster stays */ });
+      })();
+    </script>
+  </div>
+  <div class="project-hero-scrim" aria-hidden="true"></div>
+
   <div class="hero-body">
     <div class="container is-max-widescreen">
       <div class="columns is-centered">
@@ -82,17 +99,15 @@
                   <span>arXiv</span>
                 </a>
               </span>
-              <!-- Video. Disabled until there is a YouTube upload; fill in the href and
-                   remove the comment markers to bring the button back.
+              <!-- Video. -->
               <span class="link-block">
-                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                <a href="https://youtu.be/S5hcQCiXyU0" class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                     <i class="fab fa-youtube"></i>
                   </span>
                   <span>Video</span>
                 </a>
               </span>
-              -->
               <!-- Code. -->
               <span class="link-block">
                 <a href="https://github.com/SaxionMechatronics/spot_rl_train" class="external-link button is-normal is-rounded is-dark">
@@ -116,7 +131,7 @@
 
 
 <!-- Teaser figure. -->
-<section class="section section-tight-top">
+<section class="section">
   <div class="container is-max-widescreen">
     <img src="./static/images/figures/cover.jpg"
          alt="Spot transitioning from a four-legged stance to a handstand, in simulation and on hardware.">
@@ -224,7 +239,7 @@
     </div>
 
     <video class="result-video" autoplay controls muted loop playsinline>
-      <source src="./static/videos/training-flyover.mp4" type="video/mp4">
+      <source src="./static/videos/learning-orbit.mp4" type="video/mp4">
     </video>
     <p class="has-text-centered is-size-7 has-text-grey" style="margin-top: 0.75rem; margin-bottom: 1.5rem;">
       Flyover of the training environments as training progresses under the curriculum.
